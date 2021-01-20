@@ -2,7 +2,11 @@
 <nav>
   <a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
   <a routerLink="/heroes" routerLinkActive="active">Heroes</a> 
+  <a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>
 </nav>
 <div [@routeAnimation]="getAnimationData(routerOutlet)">
+  <!-- this is an unnamed outlet, can only have one of these per template -->
   <router-outlet #routerOutlet="outlet"></router-outlet>
 </div>
+<!-- this is a named outlet, can have many of these-->
+<router-outlet name="popup"></router-outlet>
