@@ -14,7 +14,7 @@ const crisisCenterRoutes: Routes = [
     // but child routes extend the path of the parent route. Each step down the route
     // tree, you add a slash followed by the route path, unless the path is empty
     // at this level, parent path is /crisis-center
-    path: 'crisis-center',
+    path: '',
     component: CrisisCenterComponent,
     // these child routes are shown in the RouterOutlet of the CrisisCenterComponent,
     // not in the RouterOutlet of the AppComponent shell

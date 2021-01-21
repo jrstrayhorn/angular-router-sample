@@ -5,8 +5,10 @@ import { HeroListComponent } from './hero-list/hero-list.component';
 
 // each feature module should have its own route config file - no matter how small
 const heroesRoutes: Routes = [
-  { path: 'heroes', component: HeroListComponent, data: { animation: 'heroes' } },
-  { path: 'hero/:id', component: HeroDetailComponent, data: { animation: 'hero' } }
+  { path: 'heroes', redirectTo: '/superheroes' },
+  { path: 'hero/:id', redirectTo: '/superhero/:id' },
+  { path: 'superheroes', component: HeroListComponent, data: { animation: 'heroes' } },
+  { path: 'superhero/:id', component: HeroDetailComponent, data: { animation: 'hero' } }
 ];
 
 @NgModule({

@@ -13,7 +13,10 @@ import { ManageHeroesComponent } from './manage-heroes/manage-heroes.component';
 // additionally, a component-less route makes it easier to guard child routes!!
 const adminRoutes: Routes = [
   {
-    path: 'admin',
+    // use empty path routes to group routes together without adding any additional
+    // path segments to the URL.  Users will still visit /admin and the AdminComponent
+    // still serves as the Routing Component containing child routes
+    path: '',
     component: AdminComponent,
     canActivate: [AuthGuard],
     children: [

@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, UrlTree, CanActivateChild, RouterState, NavigationExtras } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router,
+  CanActivateChild, NavigationExtras, CanLoad, Route } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): true | UrlTree {
+    state: RouterStateSnapshot): boolean {
       const url: string = state.url;
 
       return this.checkLogin(url);
@@ -22,14 +23,20 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   // this is extending the authGard to protect when navigating between the admin routes
   canActivateChild(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): true | UrlTree {
+    state: RouterStateSnapshot): boolean {
     return this.canActivate(route, state);
+  }
+
+  canLoad(route: Route): boolean {
+    const url = `/${route.path}`;
+
+    return this.checkLogin(url);
   }
 
   // use queryParams or fragment to add those during routing
   // can use these persistent bits of information for things that need
   // to be provided across pages like authentication tokens or session ids
-  checkLogin(url: string): true | UrlTree {
+  checkLogin(url: string): boolean {
     if (this.authService.isLoggedIn) { return true; }
 
     // store the attempted URL for redirecting
@@ -46,6 +53,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     };
 
     // redirect to the login page with extras
-    return this.router.createUrlTree(['/login'], navigationExtras);
+    this.router.navigate(['/login'], navigationExtras);
+    return false;
   }
 }
