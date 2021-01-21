@@ -1,0 +1,10 @@
+<h3>ADMIN</h3>
+<nav>
+    <!-- ./ can match any child route, since we want to go to /admin and not any other child route
+        we need to use the exact: true
+        -->
+    <a routerLink="./" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+    <a routerLink="./crises" routerLinkActive="active">Manage Crises</a>
+    <a routerLink="./heroes" routerLinkActive="active">Manage Heroes</a>
+</nav>
+<router-outlet></router-outlet>
